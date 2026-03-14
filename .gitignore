@@ -1,0 +1,44 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.py[cod]
+
+# Virtual environments
+venv/
+v_env/
+env/
+ENV/
+
+# Environment variables
+.env
+.env.*
+
+# Python build files
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+
+# VS Code settings
+.vscode/
+
+# Mac / Windows system files
+.DS_Store
+Thumbs.db
+
+# Audio outputs
+audio/*.mp3
+audio/*.wav
+audio/*.ogg
+
+# Temporary files
+*.tmp
+*.temp
+
+# Model cache (if whisper downloads models)
+models/
+.cache/
