@@ -11,8 +11,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
-whisper_model = WhisperModel("small", device="cpu", compute_type="int8")
+def get_client():
+    return Groq(api_key=os.environ.get("GROQ_API_KEY"))
+whisper_model = WhisperModel("tiny", device="cpu", compute_type="int8")
+
 
 LANG_CODES = {
     "en": "English", "es": "Spanish", "fr": "French", "de": "German",
@@ -105,7 +107,7 @@ def translate_text_with_context(
         f"{context_block}"
         f"Translate from {source_lang} to {target_lang}:\n{text}"
     )
-
+    client = get_client()
     response = client.chat.completions.create(
         model="llama-3.1-8b-instant",
         messages=[
@@ -174,7 +176,7 @@ def get_translation_explanation(
         '[{"original": "word", "translation": "word", "notes": "grammar note or empty string"}]\n'
         "Keep it concise. Return ONLY the JSON array."
     )
-
+    client = get_client()
     response = client.chat.completions.create(
         model="llama-3.1-8b-instant",
         messages=[{"role": "user", "content": prompt}],
@@ -205,7 +207,7 @@ def extract_vocabulary(text: str, source_lang: str) -> list:
         "Categories: greeting, noun, verb, adjective, phrase, expression.\n"
         "Return ONLY the JSON array. Max 8 items."
     )
-
+    client = get_client()
     response = client.chat.completions.create(
         model="llama-3.1-8b-instant",
         messages=[{"role": "user", "content": prompt}],
