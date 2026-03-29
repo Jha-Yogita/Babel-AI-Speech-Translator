@@ -4,41 +4,70 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Babel — AI Speech Translator</title>
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
   <style>
+    /* ─────────────────────────────────────────
+       DESIGN TOKENS
+    ───────────────────────────────────────── */
     :root {
-      --bg:       #F7F6F3;
-      --bg2:      #EFEDE8;
-      --bg3:      #E8E5DE;
-      --surface:  #FFFFFF;
-      --surf2:    #F2F0EB;
-      --bd:       #DDD9D0;
-      --bd2:      #C8C3B8;
-      --ink:      #1A1814;
-      --ink2:     #4A4640;
-      --ink3:     #8A8580;
-      --acc:      #2B4B8C;   
-      --acc-lt:   #3D5FA0;
-      --acc-bg:   #EEF1F8;
-      --acc-bd:   #C0CBDF;
-      --go:       #1E6B4F;
-      --go-bg:    #EAF4EF;
-      --go-bd:    #B2D8C5;
-      --warn:     #8B4513;
-      --warn-bg:  #FBF2EA;
-      --warn-bd:  #DFC4A5;
-      --err:      #8B1A2B;
-      --err-bg:   #FAE8EB;
-      --err-bd:   #E2B5BC;
-      --r:        10px;
-      --rsm:      7px;
-      --rlg:      14px;
-      --shadow:   0 1px 4px rgba(26,24,20,.06), 0 4px 16px rgba(26,24,20,.05);
-      --shadow-md:0 2px 8px rgba(26,24,20,.08), 0 8px 28px rgba(26,24,20,.07);
+      /* Backgrounds */
+      --bg:        #F7F6F3;
+      --bg2:       #EFEDE8;
+      --bg3:       #E8E5DE;
+      --surface:   #FFFFFF;
+
+      /* Borders */
+      --bd:        #DDD9D0;
+      --bd2:       #C8C3B8;
+
+      /* Text */
+      --ink:       #1A1814;
+      --ink2:      #4A4640;
+      --ink3:      #8A8580;
+
+      /* Accent — Blue */
+      --acc:       #2B4B8C;
+      --acc-lt:    #3D5FA0;
+      --acc-bg:    #EEF1F8;
+      --acc-bd:    #C0CBDF;
+
+      /* Success — Green */
+      --go:        #1E6B4F;
+      --go-bg:     #EAF4EF;
+      --go-bd:     #B2D8C5;
+
+      /* Warning — Amber */
+      --warn:      #8B4513;
+      --warn-bg:   #FBF2EA;
+      --warn-bd:   #DFC4A5;
+
+      /* Error — Red */
+      --err:       #8B1A2B;
+      --err-bg:    #FAE8EB;
+      --err-bd:    #E2B5BC;
+
+      /* Radii */
+      --r:         10px;
+      --rsm:       7px;
+      --rlg:       14px;
+
+      /* Shadows */
+      --shadow:    0 1px 4px rgba(26,24,20,.06), 0 4px 16px rgba(26,24,20,.05);
+      --shadow-md: 0 2px 8px rgba(26,24,20,.08), 0 8px 28px rgba(26,24,20,.07);
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ─────────────────────────────────────────
+       RESET & BASE
+    ───────────────────────────────────────── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: 'DM Sans', sans-serif;
@@ -49,6 +78,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    /* Subtle radial background glow */
     body::before {
       content: '';
       position: fixed;
@@ -65,33 +95,46 @@
       z-index: 1;
       max-width: 1100px;
       margin: 0 auto;
-      padding: 0 28px 80px;
+      padding: 0 16px 80px;
     }
 
-    
+
+    /* ─────────────────────────────────────────
+       HEADER
+    ───────────────────────────────────────── */
     .header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 32px 0 28px;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 20px 0 18px;
       border-bottom: 1px solid var(--bd);
-      margin-bottom: 28px;
+      margin-bottom: 18px;
     }
 
-    .brand { display: flex; align-items: center; gap: 14px; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
 
     .brand-icon {
-      width: 42px; height: 42px;
+      width: 38px;
+      height: 38px;
       border-radius: 10px;
       background: var(--acc);
-      display: grid; place-items: center;
-      font-size: 19px;
+      display: grid;
+      place-items: center;
+      font-size: 17px;
       box-shadow: 0 2px 8px rgba(43,75,140,.25);
+      flex-shrink: 0;
     }
 
     .brand-name {
       font-family: 'DM Serif Display', serif;
-      font-size: 1.65rem;
+      font-size: 1.45rem;
       font-weight: 400;
       letter-spacing: -.5px;
       color: var(--ink);
@@ -99,176 +142,281 @@
     }
 
     .brand-tag {
-      font-size: .68rem;
+      font-size: .64rem;
       font-weight: 500;
-      letter-spacing: 1.8px;
+      letter-spacing: 1.6px;
       text-transform: uppercase;
       color: var(--ink3);
       margin-top: 3px;
     }
 
+
+    /* ─────────────────────────────────────────
+       STATUS BADGE
+    ───────────────────────────────────────── */
     .status {
-      display: inline-flex; align-items: center; gap: 7px;
-      font-size: .76rem; font-weight: 500;
-      padding: 6px 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 11px;
       border-radius: 100px;
+      font-size: .74rem;
+      font-weight: 500;
       background: var(--surface);
       border: 1px solid var(--bd);
       color: var(--ink3);
-      transition: all .3s;
+      white-space: nowrap;
       box-shadow: var(--shadow);
+      transition: all .3s;
     }
-    .status .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--bd2); transition: all .3s; }
-    .status.listening { background: var(--err-bg); border-color: var(--err-bd); color: var(--err); }
-    .status.listening .dot { background: var(--err); animation: blink .9s infinite; }
+
+    .status .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--bd2);
+      flex-shrink: 0;
+      transition: all .3s;
+    }
+
+    .status.listening  { background: var(--err-bg);  border-color: var(--err-bd);  color: var(--err); }
+    .status.listening .dot  { background: var(--err);  animation: blink .9s infinite; }
     .status.processing { background: var(--warn-bg); border-color: var(--warn-bd); color: var(--warn); }
     .status.processing .dot { background: var(--warn); }
-    .status.done { background: var(--go-bg); border-color: var(--go-bd); color: var(--go); }
-    .status.done .dot { background: var(--go); }
-    @keyframes blink { 50% { opacity: .15 } }
+    .status.done       { background: var(--go-bg);   border-color: var(--go-bd);   color: var(--go); }
+    .status.done .dot       { background: var(--go); }
 
+    @keyframes blink { 50% { opacity: .15; } }
+
+
+    /* ─────────────────────────────────────────
+       TABS
+    ───────────────────────────────────────── */
     .tabs {
-      display: flex; gap: 2px;
+      display: flex;
+      gap: 2px;
+      padding: 4px;
+      margin-bottom: 18px;
       background: var(--surface);
       border: 1px solid var(--bd);
       border-radius: var(--r);
-      padding: 4px;
-      margin-bottom: 24px;
       box-shadow: var(--shadow);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
     }
-    .tab {
-      flex: 1; text-align: center;
-      padding: 9px 14px;
-      border-radius: var(--rsm);
-      font-size: .83rem; font-weight: 500;
-      cursor: pointer;
-      color: var(--ink3);
-      transition: all .18s;
-      user-select: none;
-      display: flex; align-items: center; justify-content: center; gap: 7px;
-    }
-    .tab:hover { color: var(--ink2); background: var(--bg2); }
-    .tab.active {
-      background: var(--acc);
-      color: #fff;
-      box-shadow: 0 1px 4px rgba(43,75,140,.25);
-    }
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
 
+    .tabs::-webkit-scrollbar { display: none; }
+
+    .tab {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 10px;
+      border-radius: var(--rsm);
+      font-size: .8rem;
+      font-weight: 500;
+      color: var(--ink3);
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+      transition: all .18s;
+    }
+
+    .tab:hover  { color: var(--ink2); background: var(--bg2); }
+    .tab.active { background: var(--acc); color: #fff; box-shadow: 0 1px 4px rgba(43,75,140,.25); }
+
+    .tab-panel         { display: none; }
+    .tab-panel.active  { display: block; }
+
+
+    /* ─────────────────────────────────────────
+       LAYOUT (two-column on desktop)
+    ───────────────────────────────────────── */
     .layout {
       display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 20px;
+      grid-template-columns: 1fr 360px;
+      gap: 16px;
       align-items: start;
     }
-    @media(max-width:820px) { .layout { grid-template-columns: 1fr; } }
 
+
+    /* ─────────────────────────────────────────
+       CARD
+    ───────────────────────────────────────── */
     .card {
       background: var(--surface);
       border: 1px solid var(--bd);
       border-radius: var(--rlg);
-      padding: 22px;
+      padding: 18px;
       box-shadow: var(--shadow);
     }
-    .card + .card { margin-top: 16px; }
+
+    .card + .card { margin-top: 14px; }
+
     .card-title {
-      font-size: .66rem;
+      font-size: .64rem;
       font-weight: 600;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--ink3);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
+
+    /* ─────────────────────────────────────────
+       LANGUAGE PAIR SELECTOR
+    ───────────────────────────────────────── */
     .lang-pair {
       display: grid;
       grid-template-columns: 1fr 38px 1fr;
-      gap: 10px;
+      gap: 8px;
       align-items: end;
     }
+
     .lang-field label {
       display: block;
-      font-size: .67rem;
+      font-size: .64rem;
       font-weight: 600;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--ink3);
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
+
     select.ls {
       width: 100%;
+      min-width: 0;
+      padding: 8px 28px 8px 10px;
       background: var(--bg);
       border: 1px solid var(--bd);
       border-radius: var(--rsm);
-      padding: 9px 32px 9px 12px;
       font-family: 'DM Sans', sans-serif;
-      font-size: .88rem;
+      font-size: .85rem;
       color: var(--ink);
       cursor: pointer;
       appearance: none;
+      -webkit-appearance: none;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%238A8580' d='M5 7L0.5 2.5h9z'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
-      background-position: right 11px center;
+      background-position: right 10px center;
       transition: border-color .18s, box-shadow .18s;
     }
-    select.ls:focus { outline: none; border-color: var(--acc); box-shadow: 0 0 0 3px rgba(43,75,140,.1); }
+
+    select.ls:focus {
+      outline: none;
+      border-color: var(--acc);
+      box-shadow: 0 0 0 3px rgba(43,75,140,.1);
+    }
+
     select.ls option { background: var(--surface); }
 
     .swap-btn {
-      width: 38px; height: 38px;
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
       background: var(--surface);
       border: 1px solid var(--bd);
       border-radius: var(--rsm);
-      display: grid; place-items: center;
-      cursor: pointer;
-      color: var(--ink3);
       font-size: .85rem;
-      transition: all .18s;
+      color: var(--ink3);
+      cursor: pointer;
+      flex-shrink: 0;
       box-shadow: var(--shadow);
+      transition: all .18s;
     }
-    .swap-btn:hover { border-color: var(--acc); color: var(--acc); transform: rotate(180deg); }
 
-    .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+    .swap-btn:hover {
+      border-color: var(--acc);
+      color: var(--acc);
+      transform: rotate(180deg);
+    }
+
+
+    /* ─────────────────────────────────────────
+       CHIP TOGGLES
+    ───────────────────────────────────────── */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
     .chip {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 6px 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
       border-radius: 100px;
-      font-size: .79rem; font-weight: 500;
-      border: 1px solid var(--bd);
+      font-size: .78rem;
+      font-weight: 500;
       background: var(--bg2);
+      border: 1px solid var(--bd);
       color: var(--ink2);
+      white-space: nowrap;
       cursor: pointer;
       user-select: none;
       transition: all .18s;
     }
+
     .chip input { display: none; }
     .chip:hover { border-color: var(--acc); color: var(--acc); }
-    .chip.on { background: var(--acc-bg); border-color: var(--acc-bd); color: var(--acc); font-weight: 600; }
+    .chip.on    { background: var(--acc-bg); border-color: var(--acc-bd); color: var(--acc); font-weight: 600; }
 
-    .sep { height: 1px; background: var(--bd); margin: 18px 0; }
+    .div-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 16px 0 12px;
+      font-size: .66rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--ink3);
+    }
 
+    .div-label::before,
+    .div-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--bd);
+    }
+
+
+    /* ─────────────────────────────────────────
+       RECORD BUTTON & WAVEFORM
+    ───────────────────────────────────────── */
     .record-zone {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px 0 14px;
-      gap: 14px;
+      gap: 12px;
+      padding: 18px 0 12px;
     }
 
     .record-btn {
-      width: 76px; height: 76px;
+      position: relative;
+      width: 72px;
+      height: 72px;
       border-radius: 50%;
       border: none;
-      cursor: pointer;
       background: var(--acc);
       color: white;
-      font-size: 1.45rem;
-      display: grid; place-items: center;
-      transition: transform .15s, box-shadow .2s, background .2s;
+      font-size: 1.35rem;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
       box-shadow: 0 4px 18px rgba(43,75,140,.3), 0 1px 4px rgba(43,75,140,.2);
-      position: relative;
+      transition: transform .15s, box-shadow .2s, background .2s;
     }
+
+    /* Outer ring decoration */
     .record-btn::before {
       content: '';
       position: absolute;
@@ -277,275 +425,578 @@
       border: 1.5px solid var(--acc-bd);
       opacity: .5;
     }
-    .record-btn:hover { transform: scale(1.05); box-shadow: 0 6px 24px rgba(43,75,140,.38); }
+
+    .record-btn:hover  { transform: scale(1.05); box-shadow: 0 6px 24px rgba(43,75,140,.38); }
+    .record-btn:active { transform: scale(0.97); }
+
+    /* Recording state — red pulse */
     .record-btn.rec {
       background: var(--err);
       box-shadow: 0 4px 18px rgba(139,26,43,.3);
-      animation: rp 1.6s infinite;
+      animation: pulse 1.6s infinite;
     }
+
     .record-btn.rec::before { border-color: var(--err-bd); }
-    @keyframes rp {
-      0%   { box-shadow: 0 0 0 0 rgba(139,26,43,.35); }
+
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0   rgba(139,26,43,.35); }
       60%  { box-shadow: 0 0 0 18px rgba(139,26,43,0); }
-      100% { box-shadow: 0 0 0 0 rgba(139,26,43,0); }
+      100% { box-shadow: 0 0 0 0   rgba(139,26,43,0); }
     }
-    .rec-hint { font-size: .8rem; color: var(--ink3); }
+
+    .rec-hint {
+      font-size: .79rem;
+      color: var(--ink3);
+      text-align: center;
+    }
 
     .waveform {
-      width: 100%; height: 44px;
-      background: var(--bg2);
-      border-radius: var(--rsm);
-      display: flex; align-items: center; justify-content: center;
-      gap: 2.5px; padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      width: 100%;
+      height: 42px;
+      padding: 0 12px;
       overflow: hidden;
+      background: var(--bg2);
       border: 1px solid var(--bd);
+      border-radius: var(--rsm);
     }
+
     .w-bar {
-      width: 2.5px; border-radius: 2px;
+      width: 2.5px;
+      min-height: 3px;
+      border-radius: 2px;
       background: var(--acc);
-      min-height: 3px; opacity: .25;
+      opacity: .25;
       transition: height .07s ease;
     }
 
+
+    /* ─────────────────────────────────────────
+       LIVE SUBTITLES
+    ───────────────────────────────────────── */
     .sub-block {
+      padding: 13px 15px;
+      min-height: 60px;
       border-radius: var(--rsm);
-      padding: 15px 17px;
-      min-height: 68px;
     }
+
     .sub-block + .sub-block { margin-top: 10px; }
-    .sub-block.orig { background: var(--bg); border: 1px solid var(--bd); }
+
+    .sub-block.orig  { background: var(--bg);     border: 1px solid var(--bd); }
     .sub-block.trans { background: var(--acc-bg); border: 1px solid var(--acc-bd); }
+
     .sub-tag {
-      font-size: .64rem; font-weight: 600;
-      letter-spacing: 1.8px; text-transform: uppercase;
-      margin-bottom: 6px; color: var(--ink3);
+      margin-bottom: 5px;
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--ink3);
     }
+
     .sub-block.trans .sub-tag { color: var(--acc); }
+
     .sub-text {
       font-family: 'DM Mono', monospace;
-      font-size: .86rem; line-height: 1.65;
+      font-size: .84rem;
+      line-height: 1.65;
       color: var(--ink);
+      word-break: break-word;
     }
+
     .sub-text.ph {
-      color: var(--ink3);
       font-family: 'DM Sans', sans-serif;
-      font-style: italic; font-size: .84rem;
+      font-size: .83rem;
+      font-style: italic;
+      color: var(--ink3);
     }
+
+    /* Blinking cursor while transcribing */
     .typing-cursor::after {
       content: '▋';
-      animation: blink 1s infinite;
-      color: var(--acc);
       font-size: .75em;
+      color: var(--acc);
+      animation: blink 1s infinite;
     }
+
     .conf-row {
-      display: flex; align-items: center; gap: 10px;
-      margin-top: 14px;
-      font-size: .74rem; color: var(--ink3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+      font-size: .73rem;
+      color: var(--ink3);
     }
+
     .conf-track {
-      flex: 1; height: 3px;
+      flex: 1;
+      height: 3px;
       background: var(--bg3);
-      border-radius: 4px; overflow: hidden;
+      border-radius: 4px;
+      overflow: hidden;
     }
+
     .conf-fill {
       height: 100%;
+      width: 0%;
       background: linear-gradient(90deg, var(--acc), var(--go));
-      border-radius: 4px; width: 0%;
+      border-radius: 4px;
       transition: width .5s ease;
     }
 
+
+    /* ─────────────────────────────────────────
+       AUDIO PLAYER
+    ───────────────────────────────────────── */
     .player {
-      display: flex; align-items: center; gap: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
       background: var(--bg2);
-      border-radius: var(--rsm);
-      padding: 11px 14px;
       border: 1px solid var(--bd);
+      border-radius: var(--rsm);
     }
+
     .play-btn {
-      width: 34px; height: 34px; border-radius: 50%;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
       border: none;
       background: var(--acc);
-      color: white; font-size: .88rem;
-      cursor: pointer; display: grid; place-items: center;
+      color: white;
+      font-size: .88rem;
+      display: grid;
+      place-items: center;
       flex-shrink: 0;
-      transition: transform .15s, background .18s;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
       box-shadow: 0 2px 8px rgba(43,75,140,.25);
+      transition: transform .15s, background .18s;
     }
+
     .play-btn:hover { transform: scale(1.08); background: var(--acc-lt); }
+
     .prog-track {
-      flex: 1; height: 3px;
+      flex: 1;
+      min-width: 0;
+      height: 3px;
       background: var(--bg3);
-      border-radius: 4px; overflow: hidden;
+      border-radius: 4px;
+      overflow: hidden;
       cursor: pointer;
     }
+
     .prog-fill {
       height: 100%;
+      width: 0%;
       background: linear-gradient(90deg, var(--acc), var(--go));
-      width: 0%; transition: width .1s linear;
+      transition: width .1s linear;
     }
+
     .dur {
-      font-size: .72rem;
+      min-width: 28px;
+      flex-shrink: 0;
       font-family: 'DM Mono', monospace;
+      font-size: .7rem;
       color: var(--ink3);
-      min-width: 30px;
     }
 
+
+    /* ─────────────────────────────────────────
+       TRANSLATION BREAKDOWN TABLE
+    ───────────────────────────────────────── */
     table.explain {
-      width: 100%; border-collapse: collapse;
-      font-size: .83rem;
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .82rem;
     }
-    table.explain th {
-      text-align: left;
-      font-size: .64rem; letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--ink3); font-weight: 600;
-      padding: 0 14px 10px 0;
-      border-bottom: 1px solid var(--bd);
-    }
-    table.explain td {
-      padding: 10px 14px 10px 0;
-      border-bottom: 1px solid var(--bd);
-      vertical-align: top;
-    }
-    table.explain tr:last-child td { border-bottom: none; }
-    .wo { font-family: 'DM Mono', monospace; color: var(--err); font-weight: 500; }
-    .wt { font-family: 'DM Mono', monospace; color: var(--go); font-weight: 500; }
-    .wn { color: var(--ink2); font-size: .8rem; line-height: 1.55; }
 
-    /* ── Vocab grid ── */
+    table.explain th {
+      padding: 0 12px 9px 0;
+      text-align: left;
+      font-size: .62rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--ink3);
+      border-bottom: 1px solid var(--bd);
+    }
+
+    table.explain td {
+      padding: 9px 12px 9px 0;
+      vertical-align: top;
+      border-bottom: 1px solid var(--bd);
+    }
+
+    table.explain tr:last-child td { border-bottom: none; }
+
+    .wo { font-family: 'DM Mono', monospace; font-weight: 500; color: var(--err); }
+    .wt { font-family: 'DM Mono', monospace; font-weight: 500; color: var(--go); }
+    .wn { font-size: .79rem; line-height: 1.55; color: var(--ink2); }
+
+
+    /* ─────────────────────────────────────────
+       VOCABULARY GRID
+    ───────────────────────────────────────── */
     .vocab-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(146px, 1fr));
-      gap: 10px;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 8px;
     }
+
     .vc {
+      padding: 10px;
       background: var(--bg);
       border: 1px solid var(--bd);
       border-radius: var(--rsm);
-      padding: 12px;
       transition: border-color .18s, box-shadow .18s;
     }
-    .vc:hover { border-color: var(--acc); box-shadow: 0 2px 8px rgba(43,75,140,.1); }
-    .vc-word { font-family: 'DM Mono', monospace; font-size: .83rem; color: var(--acc); font-weight: 500; margin-bottom: 4px; }
-    .vc-meaning { font-size: .81rem; color: var(--ink); margin-bottom: 5px; }
-    .vc-cat { font-size: .64rem; text-transform: uppercase; letter-spacing: 1px; color: var(--ink3); font-weight: 500; }
 
-    /* ── Conversation ── */
+    .vc:hover { border-color: var(--acc); box-shadow: 0 2px 8px rgba(43,75,140,.1); }
+
+    .vc-word    { font-family: 'DM Mono', monospace; font-size: .81rem; font-weight: 500; color: var(--acc); margin-bottom: 3px; word-break: break-word; }
+    .vc-meaning { font-size: .79rem; color: var(--ink); margin-bottom: 4px; }
+    .vc-cat     { font-size: .62rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--ink3); }
+
+
+    /* ─────────────────────────────────────────
+       CONVERSATION TAB
+    ───────────────────────────────────────── */
     .conv-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 18px;
+      gap: 14px;
+      margin-bottom: 16px;
     }
-    @media(max-width:600px) { .conv-grid { grid-template-columns: 1fr; } }
 
     .person-card {
+      padding: 18px;
+      text-align: center;
       background: var(--surface);
       border: 1px solid var(--bd);
       border-radius: var(--rlg);
-      padding: 22px;
-      text-align: center;
-      transition: border-color .25s, box-shadow .25s;
       box-shadow: var(--shadow);
+      transition: border-color .25s, box-shadow .25s;
     }
+
     .person-card.speaking {
       border-color: var(--acc);
       box-shadow: 0 0 0 3px rgba(43,75,140,.1), var(--shadow-md);
     }
+
     .person-btn {
-      width: 52px; height: 52px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       border: none;
-      cursor: pointer; color: white;
-      font-size: 1.2rem;
-      display: grid; place-items: center;
-      margin: 0 auto 12px;
+      color: white;
+      font-size: 1.1rem;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 10px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
       transition: transform .15s, box-shadow .18s;
     }
-    .person-btn:hover { transform: scale(1.06); }
+
+    .person-btn:hover  { transform: scale(1.06); }
+    .person-btn:active { transform: scale(0.96); }
+
     .pb-a { background: var(--acc); box-shadow: 0 3px 12px rgba(43,75,140,.3); }
-    .pb-b { background: var(--go); box-shadow: 0 3px 12px rgba(30,107,79,.3); }
-    .person-name { font-weight: 600; font-size: .88rem; margin-bottom: 10px; color: var(--ink); }
+    .pb-b { background: var(--go);  box-shadow: 0 3px 12px rgba(30,107,79,.3); }
+
+    .person-name {
+      margin-bottom: 10px;
+      font-size: .86rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
     .conv-bubble {
+      margin-top: 8px;
+      padding: 8px 10px;
+      text-align: left;
       background: var(--bg);
       border: 1px solid var(--bd);
       border-radius: var(--rsm);
-      padding: 10px 12px;
-      text-align: left;
-      margin-top: 10px;
     }
 
+
+    /* ─────────────────────────────────────────
+       CONVERSATION FEED
+    ───────────────────────────────────────── */
     .feed {
+      max-height: 320px;
+      overflow-y: auto;
       background: var(--surface);
       border: 1px solid var(--bd);
       border-radius: var(--rlg);
-      max-height: 350px;
-      overflow-y: auto;
       box-shadow: var(--shadow);
+      -webkit-overflow-scrolling: touch;
     }
+
     .feed-hdr {
-      padding: 15px 22px 11px;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      padding: 13px 18px 10px;
+      background: var(--surface);
       border-bottom: 1px solid var(--bd);
-      font-size: .66rem; font-weight: 600;
-      letter-spacing: 2px; text-transform: uppercase;
+      font-size: .64rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
       color: var(--ink3);
     }
-    .feed-body { padding: 0 22px; }
-    .feed-item { padding: 14px 0; border-bottom: 1px solid var(--bd); }
-    .feed-item:last-child { border-bottom: none; }
-    .feed-meta { display: flex; justify-content: space-between; margin-bottom: 6px; }
-    .feed-who { font-size: .74rem; font-weight: 600; }
-    .feed-who.pa { color: var(--acc); }
-    .feed-who.pb { color: var(--go); }
-    .feed-pair { font-size: .71rem; color: var(--ink3); }
-    .feed-orig { color: var(--ink3); font-size: .81rem; margin-bottom: 3px; font-style: italic; }
-    .feed-trans { font-size: .87rem; color: var(--ink); }
 
-    /* ── History ── */
-    .hist-toolbar {
-      display: flex; justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      flex-wrap: wrap; gap: 10px;
+    .feed-body { padding: 0 18px; }
+
+    .feed-item {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--bd);
     }
+
+    .feed-item:last-child { border-bottom: none; }
+
+    .feed-meta {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 5px;
+    }
+
+    .feed-who        { font-size: .72rem; font-weight: 600; }
+    .feed-who.pa     { color: var(--acc); }
+    .feed-who.pb     { color: var(--go); }
+    .feed-pair       { font-size: .69rem; color: var(--ink3); }
+    .feed-orig       { font-size: .8rem; font-style: italic; color: var(--ink3); margin-bottom: 3px; word-break: break-word; }
+    .feed-trans      { font-size: .85rem; color: var(--ink); word-break: break-word; }
+
+
+    /* ─────────────────────────────────────────
+       HISTORY TAB
+    ───────────────────────────────────────── */
+    .hist-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .export-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
     .export-btn {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 7px 12px;
-      font-size: .77rem; font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 11px;
       font-family: 'DM Sans', sans-serif;
-      border-radius: var(--rsm);
-      border: 1px solid var(--bd);
+      font-size: .75rem;
+      font-weight: 500;
+      white-space: nowrap;
       background: var(--bg2);
+      border: 1px solid var(--bd);
+      border-radius: var(--rsm);
       color: var(--ink2);
       cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
       transition: all .18s;
     }
-    .export-btn:hover { border-color: var(--acc); color: var(--acc); background: var(--acc-bg); }
+
+    .export-btn:hover        { border-color: var(--acc); color: var(--acc); background: var(--acc-bg); }
     .export-btn.danger:hover { border-color: var(--err); color: var(--err); background: var(--err-bg); }
-    .hist-item { padding: 16px 0; border-bottom: 1px solid var(--bd); }
-    .hist-item:last-child { border-bottom: none; }
-    .hist-meta { display: flex; justify-content: space-between; font-size: .72rem; color: var(--ink3); margin-bottom: 7px; }
-    .hist-orig { color: var(--ink3); font-size: .83rem; font-style: italic; margin-bottom: 3px; }
-    .hist-trans { color: var(--ink); font-size: .88rem; }
 
-    .hidden { display: none !important; }
-    .fade-up { animation: fu .3s ease forwards; }
-    @keyframes fu { from { opacity: 0; transform: translateY(7px) } to { opacity: 1; transform: none } }
-
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 4px; }
-
-    .div-label {
-      display: flex; align-items: center; gap: 10px;
-      font-size: .68rem; letter-spacing: 1.5px; text-transform: uppercase;
-      color: var(--ink3); margin: 18px 0 14px;
+    .hist-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--bd);
     }
-    .div-label::before, .div-label::after { content: ''; flex: 1; height: 1px; background: var(--bd); }
+
+    .hist-item:last-child { border-bottom: none; }
+
+    .hist-meta {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 6px;
+      font-size: .7rem;
+      color: var(--ink3);
+    }
+
+    .hist-orig  { font-size: .82rem; font-style: italic; color: var(--ink3); margin-bottom: 3px; word-break: break-word; }
+    .hist-trans { font-size: .86rem; color: var(--ink); word-break: break-word; }
+
+
+    /* ─────────────────────────────────────────
+       UTILITIES
+    ───────────────────────────────────────── */
+    .hidden { display: none !important; }
+
+    .fade-up { animation: fadeUp .3s ease forwards; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(7px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar        { width: 5px; }
+    ::-webkit-scrollbar-track  { background: transparent; }
+    ::-webkit-scrollbar-thumb  { background: var(--bg3); border-radius: 4px; }
+
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE — TABLET (≤820px)
+    ───────────────────────────────────────── */
+    @media (max-width: 820px) {
+      .app    { padding: 0 14px 60px; }
+
+      /* Stack translate layout vertically */
+      .layout { grid-template-columns: 1fr; gap: 14px; }
+    }
+
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE — MOBILE (≤600px)
+    ───────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .app { padding: 0 12px 60px; }
+
+      .header {
+        padding: 14px 0;
+        margin-bottom: 14px;
+      }
+
+      .brand-icon { width: 34px; height: 34px; font-size: 15px; }
+      .brand-name { font-size: 1.25rem; }
+      .brand-tag  { font-size: .6rem; letter-spacing: 1.3px; }
+
+      .tabs { margin-bottom: 14px; padding: 3px; }
+      .tab  { padding: 8px; font-size: .76rem; gap: 4px; }
+
+      /* Show icons only in tabs on mobile */
+      .tab-text { display: none; }
+
+      .card       { padding: 14px; border-radius: 12px; }
+      .card + .card { margin-top: 10px; }
+
+      /* Language pair: side-by-side selects, swap button below */
+      .lang-pair {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 8px;
+      }
+
+      .lang-pair .lang-field:first-child { grid-column: 1; }
+      .lang-pair .lang-field:last-child  { grid-column: 2; }
+
+      .swap-btn {
+        grid-column: 1 / -1;
+        width: 100%;
+        height: 34px;
+        order: 3;
+        border-radius: var(--rsm);
+      }
+
+      /* Rotate arrow to indicate vertical swap direction */
+      .swap-btn i { transform: rotate(90deg); }
+
+      .record-btn { width: 64px; height: 64px; font-size: 1.2rem; }
+      .waveform   { height: 36px; }
+
+      .sub-block  { padding: 11px 13px; }
+      .sub-text   { font-size: .81rem; }
+
+      /* Conversation stacks vertically on mobile */
+      .conv-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .person-card { padding: 14px; }
+      .person-btn  { width: 44px; height: 44px; font-size: 1rem; }
+
+      .feed          { max-height: 280px; }
+      .feed-hdr      { padding: 11px 14px 9px; }
+      .feed-body     { padding: 0 14px; }
+
+      /* History export buttons stretch full width */
+      .hist-toolbar  { flex-direction: column; gap: 10px; }
+      .export-btns   { width: 100%; }
+      .export-btn    { flex: 1; justify-content: center; }
+
+      table.explain    { font-size: .78rem; }
+      table.explain th { font-size: .58rem; padding: 0 8px 8px 0; }
+      table.explain td { padding: 8px 8px 8px 0; }
+
+      .vocab-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+    }
+
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE — SMALL PHONES (≤380px)
+    ───────────────────────────────────────── */
+    @media (max-width: 380px) {
+      .app { padding: 0 10px 50px; }
+
+      .brand-name { font-size: 1.1rem; }
+      .brand-tag  { display: none; }
+
+      .tab  { padding: 7px 6px; font-size: .72rem; }
+      .chip { padding: 5px 10px; font-size: .74rem; }
+      .chips { gap: 5px; }
+
+      .record-btn { width: 58px; height: 58px; font-size: 1.1rem; }
+
+      select.ls  { font-size: .8rem; padding: 7px 26px 7px 9px; }
+      .export-btn { font-size: .72rem; padding: 6px 9px; }
+    }
+
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE — LANDSCAPE PHONE
+    ───────────────────────────────────────── */
+    @media (max-width: 812px) and (orientation: landscape) and (max-height: 500px) {
+      .app         { padding-bottom: 40px; }
+      .record-zone { padding: 10px 0 8px; gap: 8px; }
+      .record-btn  { width: 56px; height: 56px; }
+      .card + .card { margin-top: 8px; }
+    }
+
+
+    /* ─────────────────────────────────────────
+       TOUCH DEVICES — disable hover side effects
+    ───────────────────────────────────────── */
+    @media (hover: none) and (pointer: coarse) {
+      .swap-btn:hover  { transform: none; }
+      .vc:hover        { border-color: var(--bd); box-shadow: none; }
+      .tab:hover       { background: transparent; color: var(--ink3); }
+      .tab.active:hover { background: var(--acc); color: #fff; }
+      .chip:hover      { border-color: var(--bd); color: var(--ink2); }
+      .chip.on:hover   { border-color: var(--acc-bd); color: var(--acc); }
+    }
   </style>
 </head>
+
+
 <body>
 <div class="app">
+
+  <!-- ══════════════════════════════════════
+       HEADER
+  ══════════════════════════════════════ -->
   <header class="header">
     <div class="brand">
       <div class="brand-icon">🌍</div>
@@ -554,26 +1005,57 @@
         <div class="brand-tag">AI Speech Translator</div>
       </div>
     </div>
-    <div class="status" id="statusEl"><span class="dot"></span><span id="statusText">Idle</span></div>
+
+    <div class="status" id="statusEl">
+      <span class="dot"></span>
+      <span id="statusText">Idle</span>
+    </div>
   </header>
 
+
+  <!-- ══════════════════════════════════════
+       TABS
+  ══════════════════════════════════════ -->
   <div class="tabs">
-    <div class="tab active" onclick="switchTab('translate',this)"><i class="bi bi-mic-fill"></i> Translate</div>
-    <div class="tab" onclick="switchTab('convo',this)"><i class="bi bi-chat-square-dots-fill"></i> Conversation</div>
-    <div class="tab" onclick="switchTab('history',this)"><i class="bi bi-clock-history"></i> History</div>
+    <div class="tab active" onclick="switchTab('translate', this)">
+      <i class="bi bi-mic-fill"></i>
+      <span class="tab-text">Translate</span>
+    </div>
+    <div class="tab" onclick="switchTab('convo', this)">
+      <i class="bi bi-chat-square-dots-fill"></i>
+      <span class="tab-text">Conversation</span>
+    </div>
+    <div class="tab" onclick="switchTab('history', this)">
+      <i class="bi bi-clock-history"></i>
+      <span class="tab-text">History</span>
+    </div>
   </div>
 
+
+  <!-- ══════════════════════════════════════
+       TAB: TRANSLATE
+  ══════════════════════════════════════ -->
   <div class="tab-panel active" id="tab-translate">
     <div class="layout">
+
+      <!-- Left column: Controls -->
       <div>
+
+        <!-- Language Pair -->
         <div class="card">
           <div class="card-title">Language Pair</div>
           <div class="lang-pair">
             <div class="lang-field">
               <label>Source</label>
-              <select class="ls" id="sourceLang"><option value="auto">🌐 Auto Detect</option></select>
+              <select class="ls" id="sourceLang">
+                <option value="auto">🌐 Auto Detect</option>
+              </select>
             </div>
-            <button class="swap-btn" onclick="swapLanguages()"><i class="bi bi-arrow-left-right"></i></button>
+
+            <button class="swap-btn" onclick="swapLanguages()">
+              <i class="bi bi-arrow-left-right"></i>
+            </button>
+
             <div class="lang-field">
               <label>Target</label>
               <select class="ls" id="targetLang"></select>
@@ -581,20 +1063,38 @@
           </div>
         </div>
 
+        <!-- Analysis Options -->
         <div class="card">
           <div class="card-title">Analysis</div>
           <div class="chips">
-            <label class="chip" id="chipExplain"><input type="checkbox" id="optExplain"/><i class="bi bi-book"></i> Breakdown</label>
-            <label class="chip" id="chipVocab"><input type="checkbox" id="optVocab"/><i class="bi bi-journal-text"></i> Vocabulary</label>
-            <label class="chip on" id="chipConf"><input type="checkbox" id="optConf" checked/><i class="bi bi-activity"></i> Confidence</label>
+            <label class="chip" id="chipExplain">
+              <input type="checkbox" id="optExplain" />
+              <i class="bi bi-book"></i> Breakdown
+            </label>
+            <label class="chip" id="chipVocab">
+              <input type="checkbox" id="optVocab" />
+              <i class="bi bi-journal-text"></i> Vocabulary
+            </label>
+            <label class="chip on" id="chipConf">
+              <input type="checkbox" id="optConf" checked />
+              <i class="bi bi-activity"></i> Confidence
+            </label>
           </div>
+
           <div class="div-label">Playback Speed</div>
           <div class="chips">
-            <label class="chip on" id="voiceNormal"><input type="radio" name="voice" value="female" checked/><i class="bi bi-play-circle"></i> Normal</label>
-            <label class="chip" id="voiceSlow"><input type="radio" name="voice" value="slow"/><i class="bi bi-hourglass-split"></i> Slow</label>
+            <label class="chip on" id="voiceNormal">
+              <input type="radio" name="voice" value="female" checked />
+              <i class="bi bi-play-circle"></i> Normal
+            </label>
+            <label class="chip" id="voiceSlow">
+              <input type="radio" name="voice" value="slow" />
+              <i class="bi bi-hourglass-split"></i> Slow
+            </label>
           </div>
         </div>
 
+        <!-- Record Button -->
         <div class="card">
           <div class="record-zone">
             <button class="record-btn" id="recordBtn" onclick="toggleRecording()">
@@ -604,58 +1104,89 @@
           </div>
           <div class="waveform" id="waveform"></div>
         </div>
+
       </div>
 
+      <!-- Right column: Output -->
       <div>
+
+        <!-- Live Subtitles -->
         <div class="card">
           <div class="card-title">Live Subtitles</div>
+
           <div class="sub-block orig">
             <div class="sub-tag" id="srcTag">Detected Language</div>
             <div class="sub-text ph" id="originalText">Speak to see transcription…</div>
           </div>
+
           <div class="sub-block trans">
             <div class="sub-tag" id="tgtTag">Translation</div>
             <div class="sub-text ph" id="translatedText">Translation will appear here…</div>
           </div>
+
           <div class="conf-row">
             <span>Confidence</span>
-            <div class="conf-track"><div class="conf-fill" id="confFill"></div></div>
+            <div class="conf-track">
+              <div class="conf-fill" id="confFill"></div>
+            </div>
             <span id="confScore">—</span>
           </div>
         </div>
 
+        <!-- Audio Player (hidden until audio is ready) -->
         <div class="card hidden" id="audioCard">
           <div class="card-title">Audio Output</div>
           <div class="player">
-            <button class="play-btn" onclick="playAudio()"><i class="bi bi-play-fill" id="playIcon"></i></button>
-            <div class="prog-track" onclick="seekAudio(event)"><div class="prog-fill" id="progFill"></div></div>
+            <button class="play-btn" onclick="playAudio()">
+              <i class="bi bi-play-fill" id="playIcon"></i>
+            </button>
+            <div class="prog-track" onclick="seekAudio(event)">
+              <div class="prog-fill" id="progFill"></div>
+            </div>
             <span class="dur" id="durLabel">0:00</span>
           </div>
           <audio id="audioEl" style="display:none"></audio>
         </div>
+
       </div>
     </div>
 
-    <div class="card hidden fade-up" id="explainPanel" style="margin-top:20px">
+    <!-- Translation Breakdown (shown if Breakdown chip is on) -->
+    <div class="card hidden fade-up" id="explainPanel" style="margin-top:16px">
       <div class="card-title"><i class="bi bi-book"></i> Translation Breakdown</div>
       <div style="overflow-x:auto">
         <table class="explain">
-          <thead><tr><th>Original</th><th>Translation</th><th>Notes</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Original</th>
+              <th>Translation</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
           <tbody id="explainBody"></tbody>
         </table>
       </div>
     </div>
 
-    <div class="card hidden fade-up" id="vocabPanel" style="margin-top:20px">
+    <!-- Vocabulary Panel (shown if Vocabulary chip is on) -->
+    <div class="card hidden fade-up" id="vocabPanel" style="margin-top:16px">
       <div class="card-title"><i class="bi bi-journal-text"></i> Vocabulary</div>
       <div class="vocab-grid" id="vocabGrid"></div>
     </div>
   </div>
 
+
+  <!-- ══════════════════════════════════════
+       TAB: CONVERSATION
+  ══════════════════════════════════════ -->
   <div class="tab-panel" id="tab-convo">
+
+    <!-- Two-person cards -->
     <div class="conv-grid">
       <div class="person-card" id="panelA">
-        <button class="person-btn pb-a" id="btnA" onclick="convSpeak('A')"><i class="bi bi-mic"></i></button>
+        <button class="person-btn pb-a" id="btnA" onclick="convSpeak('A')">
+          <i class="bi bi-mic"></i>
+        </button>
         <div class="person-name">Person A</div>
         <select class="ls" id="convLangA"></select>
         <div class="conv-bubble">
@@ -663,8 +1194,11 @@
           <div class="sub-text ph" id="convOrigA">—</div>
         </div>
       </div>
+
       <div class="person-card" id="panelB">
-        <button class="person-btn pb-b" id="btnB" onclick="convSpeak('B')"><i class="bi bi-mic"></i></button>
+        <button class="person-btn pb-b" id="btnB" onclick="convSpeak('B')">
+          <i class="bi bi-mic"></i>
+        </button>
         <div class="person-name">Person B</div>
         <select class="ls" id="convLangB"></select>
         <div class="conv-bubble">
@@ -673,81 +1207,794 @@
         </div>
       </div>
     </div>
+
+    <!-- Live conversation feed -->
     <div class="feed">
       <div class="feed-hdr">Conversation Feed</div>
       <div class="feed-body" id="convFeedBody">
-        <div class="feed-item" style="color:var(--ink3);font-size:.85rem;font-style:italic">Start speaking to begin…</div>
+        <div class="feed-item" style="color:var(--ink3);font-size:.85rem;font-style:italic">
+          Start speaking to begin…
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ── HISTORY ── -->
+
+  <!-- ══════════════════════════════════════
+       TAB: HISTORY
+  ══════════════════════════════════════ -->
   <div class="tab-panel" id="tab-history">
     <div class="card">
       <div class="hist-toolbar">
         <div class="card-title" style="margin:0">Conversation History</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="export-btn" onclick="exportTranscript('txt')"><i class="bi bi-file-text"></i> TXT</button>
-          <button class="export-btn" onclick="exportTranscript('json')"><i class="bi bi-filetype-json"></i> JSON</button>
-          <button class="export-btn" onclick="exportTranscript('pdf')"><i class="bi bi-file-pdf"></i> PDF</button>
-          <button class="export-btn danger" onclick="clearHistory()"><i class="bi bi-trash3"></i> Clear</button>
+        <div class="export-btns">
+          <button class="export-btn" onclick="exportTranscript('txt')">
+            <i class="bi bi-file-text"></i> TXT
+          </button>
+          <button class="export-btn" onclick="exportTranscript('json')">
+            <i class="bi bi-filetype-json"></i> JSON
+          </button>
+          <button class="export-btn" onclick="exportTranscript('pdf')">
+            <i class="bi bi-file-pdf"></i> PDF
+          </button>
+          <button class="export-btn danger" onclick="clearHistory()">
+            <i class="bi bi-trash3"></i> Clear
+          </button>
         </div>
       </div>
+
       <div id="historyList">
-        <div style="color:var(--ink3);font-size:.85rem;font-style:italic">No history yet. Start translating.</div>
+        <div style="color:var(--ink3);font-size:.85rem;font-style:italic">
+          No history yet. Start translating.
+        </div>
       </div>
     </div>
   </div>
-</div>
 
+</div><!-- /.app -->
+
+
+<!-- ══════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════ -->
 <script src="https://cdn.jsdelivr.net/npm/socket.io/client-dist/socket.io.min.js"></script>
 <script>
-const LANGS=[{name:"English",flag:"🇬🇧"},{name:"Spanish",flag:"🇪🇸"},{name:"French",flag:"🇫🇷"},{name:"German",flag:"🇩🇪"},{name:"Hindi",flag:"🇮🇳"},{name:"Japanese",flag:"🇯🇵"},{name:"Korean",flag:"🇰🇷"},{name:"Chinese",flag:"🇨🇳"},{name:"Arabic",flag:"🇸🇦"},{name:"Russian",flag:"🇷🇺"},{name:"Portuguese",flag:"🇧🇷"},{name:"Italian",flag:"🇮🇹"},{name:"Dutch",flag:"🇳🇱"},{name:"Polish",flag:"🇵🇱"},{name:"Turkish",flag:"🇹🇷"},{name:"Vietnamese",flag:"🇻🇳"},{name:"Thai",flag:"🇹🇭"},{name:"Swedish",flag:"🇸🇪"},{name:"Bengali",flag:"🇧🇩"},{name:"Urdu",flag:"🇵🇰"}];
-const SID="session_"+Math.random().toString(36).slice(2,10);
-let isRec=false,mr=null,cks=[],actx=null,an=null,wid=null,bars=[];
-const aEl=document.getElementById("audioEl");
-let cvRec=false,cvP=null;
-const socket=io();
-socket.on("translation_result",d=>{updSubs(d.original,d.translated,d.detected_language,d.confidence);if(d.is_final)addHist(d);});
-socket.on("audio_ready",d=>setAudio(d.audio_b64));
-function init(){popLangs();buildBars(44);setupChips();loadHist();}
-function popLangs(){["targetLang","convLangA","convLangB"].forEach(id=>{const s=document.getElementById(id);LANGS.forEach(l=>{const o=document.createElement("option");o.value=l.name;o.textContent=l.flag+" "+l.name;s.appendChild(o);});});const src=document.getElementById("sourceLang");LANGS.forEach(l=>{const o=document.createElement("option");o.value=l.name;o.textContent=l.flag+" "+l.name;src.appendChild(o);});document.getElementById("targetLang").value="English";document.getElementById("convLangA").value="Hindi";document.getElementById("convLangB").value="English";}
-function swapLanguages(){const s=document.getElementById("sourceLang"),t=document.getElementById("targetLang");if(s.value==="auto")return;[s.value,t.value]=[t.value,s.value];}
-function setupChips(){document.querySelectorAll(".chip").forEach(c=>{const i=c.querySelector("input");if(!i)return;if(i.type==="radio"){i.addEventListener("change",()=>{document.querySelectorAll('[name="'+i.name+'"]').forEach(r=>r.closest(".chip").classList.remove("on"));c.classList.add("on");});}else{i.addEventListener("change",()=>c.classList.toggle("on",i.checked));}});}
-function buildBars(n){const w=document.getElementById("waveform");w.innerHTML="";bars=[];for(let i=0;i<n;i++){const b=document.createElement("div");b.className="w-bar";b.style.height="3px";w.appendChild(b);bars.push(b);}}
-function startWave(stream){actx=new(window.AudioContext||window.webkitAudioContext)();an=actx.createAnalyser();an.fftSize=128;actx.createMediaStreamSource(stream).connect(an);const buf=new Uint8Array(an.frequencyBinCount);(function draw(){wid=requestAnimationFrame(draw);an.getByteFrequencyData(buf);bars.forEach((b,i)=>{const v=buf[Math.floor(i*buf.length/bars.length)]||0;b.style.height=Math.max(3,(v/255)*40)+"px";b.style.opacity=.2+(v/255)*.8;});})();}
-function stopWave(){if(wid)cancelAnimationFrame(wid);if(actx){actx.close();actx=null;}bars.forEach(b=>{b.style.height="3px";b.style.opacity=".25";});}
-async function toggleRecording(){isRec?stopRec():await startRec();}
-async function startRec(){try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});mr=new MediaRecorder(stream,{mimeType:"audio/webm"});cks=[];mr.ondataavailable=e=>cks.push(e.data);mr.onstop=()=>sendAudio();mr.start();startWave(stream);isRec=true;document.getElementById("recordBtn").classList.add("rec");document.getElementById("recordIcon").className="bi bi-stop-fill";document.getElementById("recHint").textContent="Recording — click to stop";setSt("listening","Listening");const o=document.getElementById("originalText");o.textContent="";o.classList.add("typing-cursor");o.classList.remove("ph");}catch(e){alert("Mic denied: "+e.message);}}
-function stopRec(){if(mr&&mr.state!=="inactive"){mr.stop();mr.stream.getTracks().forEach(t=>t.stop());}stopWave();isRec=false;document.getElementById("recordBtn").classList.remove("rec");document.getElementById("recordIcon").className="bi bi-mic-fill";document.getElementById("recHint").textContent="Click to start recording";document.getElementById("originalText").classList.remove("typing-cursor");setSt("processing","Processing");}
-async function sendAudio(){const blob=new Blob(cks,{type:"audio/webm"});const fd=new FormData();fd.append("audio",blob,"recording.webm");fd.append("target",document.getElementById("targetLang").value);fd.append("source",document.getElementById("sourceLang").value);fd.append("session_id",SID);fd.append("voice",document.querySelector("[name='voice']:checked")?.value||"female");fd.append("explain",document.getElementById("optExplain").checked?"true":"false");fd.append("vocab",document.getElementById("optVocab").checked?"true":"false");try{const res=await fetch("/translate",{method:"POST",body:fd});const data=await res.json();if(data.error){setSt("idle","Idle");alert("Error: "+data.error);return;}updSubs(data.original,data.translated,data.detected_language,data.confidence);setAudio(data.audio_b64);addHist(data);if(data.explanation)renExp(data.explanation);if(data.vocabulary)renVoc(data.vocabulary);setSt("done","Done");setTimeout(()=>setSt("idle","Idle"),3000);}catch(e){setSt("idle","Idle");console.error(e);}}
-function updSubs(orig,trans,det,conf){const lD=LANGS.find(l=>l.name===det)||{};const lT=LANGS.find(l=>l.name===document.getElementById("targetLang").value)||{};document.getElementById("srcTag").textContent=(lD.flag||"🌐")+" "+(det||"Detected");document.getElementById("tgtTag").textContent=(lT.flag||"🌐")+" "+document.getElementById("targetLang").value;const o=document.getElementById("originalText"),t=document.getElementById("translatedText");o.textContent=orig;o.classList.remove("ph","typing-cursor");t.textContent=trans;t.classList.remove("ph");if(document.getElementById("optConf").checked&&conf!=null){document.getElementById("confFill").style.width=conf+"%";document.getElementById("confScore").textContent=conf+"%";}}
-function setAudio(b64){aEl.src="data:audio/mp3;base64,"+b64;document.getElementById("audioCard").classList.remove("hidden");aEl.ontimeupdate=()=>{if(aEl.duration){document.getElementById("progFill").style.width=(aEl.currentTime/aEl.duration*100)+"%";document.getElementById("durLabel").textContent=fmt(aEl.currentTime);}};aEl.onended=()=>{document.getElementById("playIcon").className="bi bi-play-fill";};aEl.play().catch(()=>{});document.getElementById("playIcon").className="bi bi-pause-fill";}
-function playAudio(){if(!aEl.src)return;if(aEl.paused){aEl.play();document.getElementById("playIcon").className="bi bi-pause-fill";}else{aEl.pause();document.getElementById("playIcon").className="bi bi-play-fill";}}
-function seekAudio(e){if(!aEl.duration)return;const r=e.currentTarget.getBoundingClientRect();aEl.currentTime=((e.clientX-r.left)/r.width)*aEl.duration;}
-function fmt(s){return Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0");}
-function renExp(items){const p=document.getElementById("explainPanel"),tb=document.getElementById("explainBody");tb.innerHTML="";if(!items||!items.length){p.classList.add("hidden");return;}items.forEach(it=>{const tr=document.createElement("tr");tr.innerHTML='<td class="wo">'+esc(it.original)+'</td><td class="wt">'+esc(it.translation)+'</td><td class="wn">'+esc(it.notes)+'</td>';tb.appendChild(tr);});p.classList.remove("hidden");}
-function renVoc(items){const p=document.getElementById("vocabPanel"),g=document.getElementById("vocabGrid");g.innerHTML="";if(!items||!items.length){p.classList.add("hidden");return;}items.forEach(it=>{const d=document.createElement("div");d.className="vc";d.innerHTML='<div class="vc-word">'+esc(it.word)+'</div><div class="vc-meaning">'+esc(it.meaning)+'</div><div class="vc-cat">'+esc(it.category)+'</div>';g.appendChild(d);});p.classList.remove("hidden");}
-function setSt(type,text){const e=document.getElementById("statusEl");e.className="status"+(type!=="idle"?" "+type:"");document.getElementById("statusText").textContent=text;}
-function switchTab(name,el){document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));document.getElementById("tab-"+name).classList.add("active");el.classList.add("active");if(name==="history")loadHist();}
-let hist=[];
-function addHist(data){hist.push({turn:hist.length+1,time:new Date().toLocaleTimeString(),original:data.original,translated:data.translated,source_lang:data.detected_language||"?",target_lang:data.target_language||document.getElementById("targetLang").value,confidence:data.confidence});}
-function loadHist(){const el=document.getElementById("historyList");if(!hist.length){el.innerHTML='<div style="color:var(--ink3);font-size:.85rem;font-style:italic">No history yet. Start translating.</div>';return;}el.innerHTML=hist.map(t=>'<div class="hist-item fade-up"><div class="hist-meta"><span>Turn '+t.turn+' · '+t.time+'</span><span>'+gf(t.source_lang)+' '+t.source_lang+' → '+gf(t.target_lang)+' '+t.target_lang+(t.confidence?' · <span style="color:var(--acc)">'+t.confidence+'%</span>':'')+'</span></div><div class="hist-orig">'+esc(t.original)+'</div><div class="hist-trans">'+esc(t.translated)+'</div></div>').join("");}
-function clearHistory(){if(!confirm("Clear all history?"))return;hist=[];loadHist();fetch("/clear",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({session_id:SID})});}
-async function exportTranscript(f){if(!hist.length){alert("No conversation to export.");return;}const res=await fetch("/export",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({session_id:SID,format:f})});if(!res.ok){alert("Export failed.");return;}const blob=await res.blob(),url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="babel-transcript."+f;a.click();URL.revokeObjectURL(url);}
-let cST=null,cA2=null,cAn2=null,cSid=null,cMR=null,cStr=null;
-const cQ=[];let cPlaying=false;
-function qAudio(b64){cQ.push(b64);if(!cPlaying)drainQ();}
-function drainQ(){if(!cQ.length){cPlaying=false;return;}cPlaying=true;const b64=cQ.shift();const e=new Audio("data:audio/mp3;base64,"+b64);e.onended=e.onerror=()=>drainQ();e.play().catch(()=>drainQ());}
-async function convSpeak(p){if(cvRec&&cvP===p){stopCR(p);return;}if(cvRec)return;const lA=document.getElementById("convLangA").value,lB=document.getElementById("convLangB").value;const src=p==="A"?lA:lB,tgt=p==="A"?lB:lA;cvRec=true;cvP=p;document.getElementById("panel"+p).classList.add("speaking");document.getElementById("btn"+p).innerHTML='<i class="bi bi-stop-fill"></i>';const oEl=document.getElementById("convOrig"+p);oEl.textContent="Listening…";oEl.classList.add("typing-cursor");try{cStr=await navigator.mediaDevices.getUserMedia({audio:true});const mime=MediaRecorder.isTypeSupported("audio/webm;codecs=opus")?"audio/webm;codecs=opus":"audio/webm";cMR=new MediaRecorder(cStr,{mimeType:mime});const ck=[];cMR.ondataavailable=e=>{if(e.data.size>0)ck.push(e.data);};cMR.onstop=async()=>{clearCS();cStr.getTracks().forEach(t=>t.stop());oEl.classList.remove("typing-cursor");const blob=new Blob(ck,{type:mime});if(blob.size<3000){resetCB(p);return;}oEl.textContent="Translating…";const fd=new FormData();fd.append("audio",blob,"conv.webm");fd.append("target",tgt);fd.append("source",src);fd.append("session_id",SID+"_conv");fd.append("voice","female");try{const res=await fetch("/translate",{method:"POST",body:fd});const data=await res.json();if(data.error){oEl.textContent="Error: "+data.error;resetCB(p);return;}oEl.textContent=data.original;document.getElementById("convOrig"+(p==="A"?"B":"A")).textContent=data.translated;addFI(p,data.original,data.translated,src,tgt,data.confidence);if(data.audio_b64)qAudio(data.audio_b64);}catch(e){oEl.textContent="Network error";}resetCB(p);};cMR.start(250);startCS(cStr,()=>{if(cvRec&&cvP===p)stopCR(p);});cST=setTimeout(()=>{if(cvRec&&cvP===p)stopCR(p);},15000);}catch(e){cvRec=false;cvP=null;document.getElementById("panel"+p).classList.remove("speaking");document.getElementById("btn"+p).innerHTML='<i class="bi bi-mic"></i>';oEl.classList.remove("typing-cursor");alert("Mic error: "+e.message);}}
-function stopCR(p){if(cMR&&cMR.state!=="inactive")cMR.stop();clearTimeout(cST);}
-function resetCB(p){cvRec=false;cvP=null;document.getElementById("panel"+p).classList.remove("speaking");document.getElementById("btn"+p).innerHTML='<i class="bi bi-mic"></i>';}
-function startCS(stream,cb){cA2=new(window.AudioContext||window.webkitAudioContext)();cAn2=cA2.createAnalyser();cAn2.fftSize=512;cA2.createMediaStreamSource(stream).connect(cAn2);const buf=new Uint8Array(cAn2.fftSize);let ss=null;(function check(){cSid=requestAnimationFrame(check);cAn2.getByteTimeDomainData(buf);let sum=0;for(let i=0;i<buf.length;i++){const v=(buf[i]-128)/128;sum+=v*v;}const rms=Math.sqrt(sum/buf.length)*100;if(rms<8){if(!ss)ss=Date.now();else if(Date.now()-ss>1800)cb();}else ss=null;})();}
-function clearCS(){if(cSid)cancelAnimationFrame(cSid);if(cA2){cA2.close().catch(()=>{});cA2=null;}}
-function addFI(p,orig,trans,src,tgt,conf){const body=document.getElementById("convFeedBody");const ph=body.querySelector(".feed-item");if(ph&&!ph.querySelector(".feed-meta"))ph.remove();const div=document.createElement("div");div.className="feed-item fade-up";div.innerHTML='<div class="feed-meta"><span class="feed-who '+(p==="A"?"pa":"pb")+'">Person '+p+'</span><span class="feed-pair">'+gf(src)+' → '+gf(tgt)+(conf?" · "+conf+"%":"")+'</span></div><div class="feed-orig">'+esc(orig)+'</div><div class="feed-trans">'+esc(trans)+'</div>';body.appendChild(div);body.parentElement.scrollTop=body.parentElement.scrollHeight;}
-function gf(lang){return(LANGS.find(l=>l.name===lang)||{}).flag||"🌐";}
-function esc(s){return s?s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"):""; }
-document.addEventListener("DOMContentLoaded",init);
+
+  /* ─────────────────────────────────────────
+     DATA
+  ───────────────────────────────────────── */
+  const LANGS = [
+    { name: 'English',    flag: '🇬🇧' },
+    { name: 'Spanish',    flag: '🇪🇸' },
+    { name: 'French',     flag: '🇫🇷' },
+    { name: 'German',     flag: '🇩🇪' },
+    { name: 'Hindi',      flag: '🇮🇳' },
+    { name: 'Japanese',   flag: '🇯🇵' },
+    { name: 'Korean',     flag: '🇰🇷' },
+    { name: 'Chinese',    flag: '🇨🇳' },
+    { name: 'Arabic',     flag: '🇸🇦' },
+    { name: 'Russian',    flag: '🇷🇺' },
+    { name: 'Portuguese', flag: '🇧🇷' },
+    { name: 'Italian',    flag: '🇮🇹' },
+    { name: 'Dutch',      flag: '🇳🇱' },
+    { name: 'Polish',     flag: '🇵🇱' },
+    { name: 'Turkish',    flag: '🇹🇷' },
+    { name: 'Vietnamese', flag: '🇻🇳' },
+    { name: 'Thai',       flag: '🇹🇭' },
+    { name: 'Swedish',    flag: '🇸🇪' },
+    { name: 'Bengali',    flag: '🇧🇩' },
+    { name: 'Urdu',       flag: '🇵🇰' },
+  ];
+
+  const SESSION_ID = 'session_' + Math.random().toString(36).slice(2, 10);
+
+
+  /* ─────────────────────────────────────────
+     STATE
+  ───────────────────────────────────────── */
+  // Recording
+  let isRecording    = false;
+  let mediaRecorder  = null;
+  let audioChunks    = [];
+
+  // Audio context / waveform
+  let audioCtx       = null;
+  let analyser       = null;
+  let animFrameId    = null;
+  let waveBars       = [];
+
+  // Conversation mode
+  let convRecording  = false;
+  let convPerson     = null;
+  let convSilTimer   = null;
+  let convMediaRec   = null;
+  let convStream     = null;
+  let convAudioCtx   = null;
+  let convAnalyser   = null;
+  let convAnimId     = null;
+
+  // Audio playback queue
+  const audioQueue   = [];
+  let   queuePlaying = false;
+
+  // History
+  let history        = [];
+
+  // DOM refs used frequently
+  const audioEl = document.getElementById('audioEl');
+
+
+  /* ─────────────────────────────────────────
+     INIT
+  ───────────────────────────────────────── */
+  function init() {
+    populateLanguageSelects();
+    buildWaveBars(44);
+    setupChipToggles();
+    renderHistory();
+  }
+
+
+  /* ─────────────────────────────────────────
+     SOCKET.IO — real-time events
+  ───────────────────────────────────────── */
+  const socket = io();
+
+  socket.on('translation_result', (data) => {
+    updateSubtitles(data.original, data.translated, data.detected_language, data.confidence);
+    if (data.is_final) addToHistory(data);
+  });
+
+  socket.on('audio_ready', (data) => {
+    setAudioSource(data.audio_b64);
+  });
+
+
+  /* ─────────────────────────────────────────
+     LANGUAGE SELECTS
+  ───────────────────────────────────────── */
+  function populateLanguageSelects() {
+    // Source language (has Auto Detect option already in HTML)
+    const sourceEl = document.getElementById('sourceLang');
+    LANGS.forEach(lang => {
+      const opt = document.createElement('option');
+      opt.value       = lang.name;
+      opt.textContent = lang.flag + ' ' + lang.name;
+      sourceEl.appendChild(opt);
+    });
+
+    // Target + Conversation selects
+    ['targetLang', 'convLangA', 'convLangB'].forEach(id => {
+      const sel = document.getElementById(id);
+      LANGS.forEach(lang => {
+        const opt = document.createElement('option');
+        opt.value       = lang.name;
+        opt.textContent = lang.flag + ' ' + lang.name;
+        sel.appendChild(opt);
+      });
+    });
+
+    // Default values
+    document.getElementById('targetLang').value = 'English';
+    document.getElementById('convLangA').value  = 'Hindi';
+    document.getElementById('convLangB').value  = 'English';
+  }
+
+  function swapLanguages() {
+    const src = document.getElementById('sourceLang');
+    const tgt = document.getElementById('targetLang');
+    if (src.value === 'auto') return; // can't swap auto-detect
+    [src.value, tgt.value] = [tgt.value, src.value];
+  }
+
+
+  /* ─────────────────────────────────────────
+     CHIP TOGGLES
+  ───────────────────────────────────────── */
+  function setupChipToggles() {
+    document.querySelectorAll('.chip').forEach(chip => {
+      const input = chip.querySelector('input');
+      if (!input) return;
+
+      if (input.type === 'radio') {
+        input.addEventListener('change', () => {
+          // Deactivate all chips in this radio group
+          document.querySelectorAll(`[name="${input.name}"]`).forEach(radio => {
+            radio.closest('.chip').classList.remove('on');
+          });
+          chip.classList.add('on');
+        });
+      } else {
+        input.addEventListener('change', () => {
+          chip.classList.toggle('on', input.checked);
+        });
+      }
+    });
+  }
+
+
+  /* ─────────────────────────────────────────
+     WAVEFORM VISUALISER
+  ───────────────────────────────────────── */
+  function buildWaveBars(count) {
+    const container = document.getElementById('waveform');
+    container.innerHTML = '';
+    waveBars = [];
+
+    for (let i = 0; i < count; i++) {
+      const bar = document.createElement('div');
+      bar.className    = 'w-bar';
+      bar.style.height = '3px';
+      container.appendChild(bar);
+      waveBars.push(bar);
+    }
+  }
+
+  function startWaveform(stream) {
+    audioCtx  = new (window.AudioContext || window.webkitAudioContext)();
+    analyser  = audioCtx.createAnalyser();
+    analyser.fftSize = 128;
+
+    audioCtx.createMediaStreamSource(stream).connect(analyser);
+
+    const buffer = new Uint8Array(analyser.frequencyBinCount);
+
+    function draw() {
+      animFrameId = requestAnimationFrame(draw);
+      analyser.getByteFrequencyData(buffer);
+
+      waveBars.forEach((bar, i) => {
+        const value   = buffer[Math.floor(i * buffer.length / waveBars.length)] || 0;
+        bar.style.height  = Math.max(3, (value / 255) * 40) + 'px';
+        bar.style.opacity = 0.2 + (value / 255) * 0.8;
+      });
+    }
+
+    draw();
+  }
+
+  function stopWaveform() {
+    if (animFrameId) cancelAnimationFrame(animFrameId);
+    if (audioCtx)   { audioCtx.close(); audioCtx = null; }
+    waveBars.forEach(bar => {
+      bar.style.height  = '3px';
+      bar.style.opacity = '.25';
+    });
+  }
+
+
+  /* ─────────────────────────────────────────
+     RECORDING
+  ───────────────────────────────────────── */
+  function toggleRecording() {
+    isRecording ? stopRecording() : startRecording();
+  }
+
+  async function startRecording() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+      mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+      audioChunks   = [];
+
+      mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+      mediaRecorder.onstop          = sendAudio;
+      mediaRecorder.start();
+
+      startWaveform(stream);
+      isRecording = true;
+
+      // Update UI
+      document.getElementById('recordBtn').classList.add('rec');
+      document.getElementById('recordIcon').className = 'bi bi-stop-fill';
+      document.getElementById('recHint').textContent  = 'Recording — tap to stop';
+      setStatus('listening', 'Listening');
+
+      const origEl = document.getElementById('originalText');
+      origEl.textContent = '';
+      origEl.classList.add('typing-cursor');
+      origEl.classList.remove('ph');
+
+    } catch (err) {
+      alert('Microphone access denied: ' + err.message);
+    }
+  }
+
+  function stopRecording() {
+    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+      mediaRecorder.stop();
+      mediaRecorder.stream.getTracks().forEach(t => t.stop());
+    }
+
+    stopWaveform();
+    isRecording = false;
+
+    // Reset UI
+    document.getElementById('recordBtn').classList.remove('rec');
+    document.getElementById('recordIcon').className = 'bi bi-mic-fill';
+    document.getElementById('recHint').textContent  = 'Click to start recording';
+    document.getElementById('originalText').classList.remove('typing-cursor');
+
+    setStatus('processing', 'Processing');
+  }
+
+  async function sendAudio() {
+    const blob = new Blob(audioChunks, { type: 'audio/webm' });
+
+    const form = new FormData();
+    form.append('audio',      blob, 'recording.webm');
+    form.append('target',     document.getElementById('targetLang').value);
+    form.append('source',     document.getElementById('sourceLang').value);
+    form.append('session_id', SESSION_ID);
+    form.append('voice',      document.querySelector("[name='voice']:checked")?.value || 'female');
+    form.append('explain',    document.getElementById('optExplain').checked ? 'true' : 'false');
+    form.append('vocab',      document.getElementById('optVocab').checked   ? 'true' : 'false');
+
+    try {
+      const res  = await fetch('/translate', { method: 'POST', body: form });
+      const data = await res.json();
+
+      if (data.error) {
+        setStatus('idle', 'Idle');
+        alert('Error: ' + data.error);
+        return;
+      }
+
+      updateSubtitles(data.original, data.translated, data.detected_language, data.confidence);
+      setAudioSource(data.audio_b64);
+      addToHistory(data);
+
+      if (data.explanation) renderBreakdown(data.explanation);
+      if (data.vocabulary)  renderVocabulary(data.vocabulary);
+
+      setStatus('done', 'Done');
+      setTimeout(() => setStatus('idle', 'Idle'), 3000);
+
+    } catch (err) {
+      setStatus('idle', 'Idle');
+      console.error('sendAudio error:', err);
+    }
+  }
+
+
+  /* ─────────────────────────────────────────
+     SUBTITLES & CONFIDENCE
+  ───────────────────────────────────────── */
+  function updateSubtitles(original, translated, detectedLang, confidence) {
+    const srcLang = LANGS.find(l => l.name === detectedLang) || {};
+    const tgtLang = LANGS.find(l => l.name === document.getElementById('targetLang').value) || {};
+
+    document.getElementById('srcTag').textContent = (srcLang.flag || '🌐') + ' ' + (detectedLang || 'Detected');
+    document.getElementById('tgtTag').textContent = (tgtLang.flag || '🌐') + ' ' + document.getElementById('targetLang').value;
+
+    const origEl  = document.getElementById('originalText');
+    const transEl = document.getElementById('translatedText');
+
+    origEl.textContent  = original;
+    origEl.classList.remove('ph', 'typing-cursor');
+    transEl.textContent = translated;
+    transEl.classList.remove('ph');
+
+    if (document.getElementById('optConf').checked && confidence != null) {
+      document.getElementById('confFill').style.width = confidence + '%';
+      document.getElementById('confScore').textContent = confidence + '%';
+    }
+  }
+
+
+  /* ─────────────────────────────────────────
+     AUDIO PLAYER
+  ───────────────────────────────────────── */
+  function setAudioSource(base64) {
+    audioEl.src = 'data:audio/mp3;base64,' + base64;
+    document.getElementById('audioCard').classList.remove('hidden');
+
+    audioEl.ontimeupdate = () => {
+      if (!audioEl.duration) return;
+      const pct = (audioEl.currentTime / audioEl.duration) * 100;
+      document.getElementById('progFill').style.width = pct + '%';
+      document.getElementById('durLabel').textContent  = formatTime(audioEl.currentTime);
+    };
+
+    audioEl.onended = () => {
+      document.getElementById('playIcon').className = 'bi bi-play-fill';
+    };
+
+    audioEl.play().catch(() => {});
+    document.getElementById('playIcon').className = 'bi bi-pause-fill';
+  }
+
+  function playAudio() {
+    if (!audioEl.src) return;
+
+    if (audioEl.paused) {
+      audioEl.play();
+      document.getElementById('playIcon').className = 'bi bi-pause-fill';
+    } else {
+      audioEl.pause();
+      document.getElementById('playIcon').className = 'bi bi-play-fill';
+    }
+  }
+
+  function seekAudio(event) {
+    if (!audioEl.duration) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    audioEl.currentTime = ((event.clientX - rect.left) / rect.width) * audioEl.duration;
+  }
+
+  function formatTime(seconds) {
+    return Math.floor(seconds / 60) + ':' + String(Math.floor(seconds % 60)).padStart(2, '0');
+  }
+
+
+  /* ─────────────────────────────────────────
+     BREAKDOWN TABLE
+  ───────────────────────────────────────── */
+  function renderBreakdown(items) {
+    const panel = document.getElementById('explainPanel');
+    const tbody = document.getElementById('explainBody');
+
+    tbody.innerHTML = '';
+
+    if (!items || !items.length) {
+      panel.classList.add('hidden');
+      return;
+    }
+
+    items.forEach(item => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td class="wo">${escape(item.original)}</td>
+        <td class="wt">${escape(item.translation)}</td>
+        <td class="wn">${escape(item.notes)}</td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    panel.classList.remove('hidden');
+  }
+
+
+  /* ─────────────────────────────────────────
+     VOCABULARY GRID
+  ───────────────────────────────────────── */
+  function renderVocabulary(items) {
+    const panel = document.getElementById('vocabPanel');
+    const grid  = document.getElementById('vocabGrid');
+
+    grid.innerHTML = '';
+
+    if (!items || !items.length) {
+      panel.classList.add('hidden');
+      return;
+    }
+
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'vc';
+      card.innerHTML = `
+        <div class="vc-word">${escape(item.word)}</div>
+        <div class="vc-meaning">${escape(item.meaning)}</div>
+        <div class="vc-cat">${escape(item.category)}</div>
+      `;
+      grid.appendChild(card);
+    });
+
+    panel.classList.remove('hidden');
+  }
+
+
+  /* ─────────────────────────────────────────
+     STATUS BADGE
+  ───────────────────────────────────────── */
+  function setStatus(type, text) {
+    const el = document.getElementById('statusEl');
+    el.className = 'status' + (type !== 'idle' ? ' ' + type : '');
+    document.getElementById('statusText').textContent = text;
+  }
+
+
+  /* ─────────────────────────────────────────
+     TAB SWITCHING
+  ───────────────────────────────────────── */
+  function switchTab(name, el) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    el.classList.add('active');
+    if (name === 'history') renderHistory();
+  }
+
+
+  /* ─────────────────────────────────────────
+     HISTORY
+  ───────────────────────────────────────── */
+  function addToHistory(data) {
+    history.push({
+      turn:        history.length + 1,
+      time:        new Date().toLocaleTimeString(),
+      original:    data.original,
+      translated:  data.translated,
+      source_lang: data.detected_language || '?',
+      target_lang: data.target_language || document.getElementById('targetLang').value,
+      confidence:  data.confidence,
+    });
+  }
+
+  function renderHistory() {
+    const el = document.getElementById('historyList');
+
+    if (!history.length) {
+      el.innerHTML = '<div style="color:var(--ink3);font-size:.85rem;font-style:italic">No history yet. Start translating.</div>';
+      return;
+    }
+
+    el.innerHTML = history.map(entry => `
+      <div class="hist-item fade-up">
+        <div class="hist-meta">
+          <span>Turn ${entry.turn} · ${entry.time}</span>
+          <span>
+            ${getFlag(entry.source_lang)} ${entry.source_lang}
+            →
+            ${getFlag(entry.target_lang)} ${entry.target_lang}
+            ${entry.confidence ? `· <span style="color:var(--acc)">${entry.confidence}%</span>` : ''}
+          </span>
+        </div>
+        <div class="hist-orig">${escape(entry.original)}</div>
+        <div class="hist-trans">${escape(entry.translated)}</div>
+      </div>
+    `).join('');
+  }
+
+  function clearHistory() {
+    if (!confirm('Clear all history?')) return;
+    history = [];
+    renderHistory();
+    fetch('/clear', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ session_id: SESSION_ID }),
+    });
+  }
+
+  async function exportTranscript(format) {
+    if (!history.length) {
+      alert('No conversation to export.');
+      return;
+    }
+
+    const res = await fetch('/export', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ session_id: SESSION_ID, format }),
+    });
+
+    if (!res.ok) {
+      alert('Export failed.');
+      return;
+    }
+
+    const blob = await res.blob();
+    const url  = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href     = url;
+    link.download = 'babel-transcript.' + format;
+    link.click();
+    URL.revokeObjectURL(url);
+  }
+
+
+  /* ─────────────────────────────────────────
+     CONVERSATION MODE
+  ───────────────────────────────────────── */
+  function queueAudio(base64) {
+    audioQueue.push(base64);
+    if (!queuePlaying) drainAudioQueue();
+  }
+
+  function drainAudioQueue() {
+    if (!audioQueue.length) {
+      queuePlaying = false;
+      return;
+    }
+
+    queuePlaying = true;
+    const base64 = audioQueue.shift();
+    const el     = new Audio('data:audio/mp3;base64,' + base64);
+    el.onended = el.onerror = () => drainAudioQueue();
+    el.play().catch(() => drainAudioQueue());
+  }
+
+  async function convSpeak(person) {
+    // Toggle off if same person taps again
+    if (convRecording && convPerson === person) {
+      stopConvRecording(person);
+      return;
+    }
+
+    // Ignore if the other person is recording
+    if (convRecording) return;
+
+    const langA  = document.getElementById('convLangA').value;
+    const langB  = document.getElementById('convLangB').value;
+    const source = person === 'A' ? langA : langB;
+    const target = person === 'A' ? langB : langA;
+
+    convRecording = true;
+    convPerson    = person;
+
+    document.getElementById('panel' + person).classList.add('speaking');
+    document.getElementById('btn'   + person).innerHTML = '<i class="bi bi-stop-fill"></i>';
+
+    const origEl = document.getElementById('convOrig' + person);
+    origEl.textContent = 'Listening…';
+    origEl.classList.add('typing-cursor');
+
+    try {
+      convStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+      const mime  = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
+                      ? 'audio/webm;codecs=opus'
+                      : 'audio/webm';
+      convMediaRec = new MediaRecorder(convStream, { mimeType: mime });
+
+      const chunks = [];
+      convMediaRec.ondataavailable = (e) => { if (e.data.size > 0) chunks.push(e.data); };
+
+      convMediaRec.onstop = async () => {
+        clearSilenceDetection();
+        convStream.getTracks().forEach(t => t.stop());
+        origEl.classList.remove('typing-cursor');
+
+        const blob = new Blob(chunks, { type: mime });
+        if (blob.size < 3000) { resetConvButton(person); return; } // too short, ignore
+
+        origEl.textContent = 'Translating…';
+
+        const form = new FormData();
+        form.append('audio',      blob, 'conv.webm');
+        form.append('target',     target);
+        form.append('source',     source);
+        form.append('session_id', SESSION_ID + '_conv');
+        form.append('voice',      'female');
+
+        try {
+          const res  = await fetch('/translate', { method: 'POST', body: form });
+          const data = await res.json();
+
+          if (data.error) {
+            origEl.textContent = 'Error: ' + data.error;
+            resetConvButton(person);
+            return;
+          }
+
+          origEl.textContent = data.original;
+          document.getElementById('convOrig' + (person === 'A' ? 'B' : 'A')).textContent = data.translated;
+
+          addConvFeedItem(person, data.original, data.translated, source, target, data.confidence);
+
+          if (data.audio_b64) queueAudio(data.audio_b64);
+
+        } catch (err) {
+          origEl.textContent = 'Network error';
+        }
+
+        resetConvButton(person);
+      };
+
+      convMediaRec.start(250);
+
+      // Auto-stop after 15 seconds or on silence
+      startSilenceDetection(convStream, () => {
+        if (convRecording && convPerson === person) stopConvRecording(person);
+      });
+
+      convSilTimer = setTimeout(() => {
+        if (convRecording && convPerson === person) stopConvRecording(person);
+      }, 15000);
+
+    } catch (err) {
+      convRecording = false;
+      convPerson    = null;
+      document.getElementById('panel' + person).classList.remove('speaking');
+      document.getElementById('btn'   + person).innerHTML = '<i class="bi bi-mic"></i>';
+      origEl.classList.remove('typing-cursor');
+      alert('Microphone error: ' + err.message);
+    }
+  }
+
+  function stopConvRecording(person) {
+    if (convMediaRec && convMediaRec.state !== 'inactive') convMediaRec.stop();
+    clearTimeout(convSilTimer);
+  }
+
+  function resetConvButton(person) {
+    convRecording = false;
+    convPerson    = null;
+    document.getElementById('panel' + person).classList.remove('speaking');
+    document.getElementById('btn'   + person).innerHTML = '<i class="bi bi-mic"></i>';
+  }
+
+  function startSilenceDetection(stream, onSilence) {
+    convAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    convAnalyser = convAudioCtx.createAnalyser();
+    convAnalyser.fftSize = 512;
+    convAudioCtx.createMediaStreamSource(stream).connect(convAnalyser);
+
+    const buffer       = new Uint8Array(convAnalyser.fftSize);
+    let   silenceStart = null;
+
+    function check() {
+      convAnimId = requestAnimationFrame(check);
+      convAnalyser.getByteTimeDomainData(buffer);
+
+      let sum = 0;
+      for (let i = 0; i < buffer.length; i++) {
+        const v = (buffer[i] - 128) / 128;
+        sum += v * v;
+      }
+      const rms = Math.sqrt(sum / buffer.length) * 100;
+
+      if (rms < 8) {
+        if (!silenceStart)            silenceStart = Date.now();
+        else if (Date.now() - silenceStart > 1800) onSilence();
+      } else {
+        silenceStart = null;
+      }
+    }
+
+    check();
+  }
+
+  function clearSilenceDetection() {
+    if (convAnimId)  cancelAnimationFrame(convAnimId);
+    if (convAudioCtx) { convAudioCtx.close().catch(() => {}); convAudioCtx = null; }
+  }
+
+  function addConvFeedItem(person, original, translated, source, target, confidence) {
+    const body = document.getElementById('convFeedBody');
+
+    // Remove placeholder text if present
+    const placeholder = body.querySelector('.feed-item:not(:has(.feed-meta))');
+    if (placeholder) placeholder.remove();
+
+    const item = document.createElement('div');
+    item.className = 'feed-item fade-up';
+    item.innerHTML = `
+      <div class="feed-meta">
+        <span class="feed-who ${person === 'A' ? 'pa' : 'pb'}">Person ${person}</span>
+        <span class="feed-pair">${getFlag(source)} → ${getFlag(target)}${confidence ? ' · ' + confidence + '%' : ''}</span>
+      </div>
+      <div class="feed-orig">${escape(original)}</div>
+      <div class="feed-trans">${escape(translated)}</div>
+    `;
+
+    body.appendChild(item);
+    body.parentElement.scrollTop = body.parentElement.scrollHeight;
+  }
+
+
+  /* ─────────────────────────────────────────
+     HELPERS
+  ───────────────────────────────────────── */
+  function getFlag(langName) {
+    return (LANGS.find(l => l.name === langName) || {}).flag || '🌐';
+  }
+
+  function escape(str) {
+    if (!str) return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+
+  /* ─────────────────────────────────────────
+     BOOT
+  ───────────────────────────────────────── */
+  document.addEventListener('DOMContentLoaded', init);
+
 </script>
 </body>
 </html>
